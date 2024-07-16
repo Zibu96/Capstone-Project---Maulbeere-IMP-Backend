@@ -14,7 +14,6 @@ public record ReservationDTO(
         String name,
         String surname,
         @NotNull(message = "The seats field is required")
-        @Size(min = 1, message = "Need min 1 client for the reservation")
         int seats,
         @NotEmpty(message = "The telephone field is required")
         String telephone,
