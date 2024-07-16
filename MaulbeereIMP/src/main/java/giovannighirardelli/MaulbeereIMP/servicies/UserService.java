@@ -54,9 +54,9 @@ public class UserService {
 
 
 
-    private static Role convertStringToRuoliUtente (String ruoli){
+    private static Role convertStringToRuoliUtente (String role){
         try{
-            return Role.valueOf(ruoli.toUpperCase());
+            return Role.valueOf(role.toUpperCase());
         }catch (IllegalArgumentException e) {
             throw new BadRequestException("The selected role don't exists");
         }
