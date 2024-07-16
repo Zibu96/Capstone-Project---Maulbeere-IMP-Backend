@@ -47,16 +47,16 @@ public class UserService {
     public User findById(UUID id) {
         return this.userRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
-    public void findByIdAndDelete(UUID id) {
+    public void findUserByIdAndDelete(UUID id) {
         User found = this.findById(id);
         this.userRepository.delete(found);
     }
 
 
 
-    private static Role convertStringToRuoliUtente (String ruoli){
+    private static Role convertStringToRuoliUtente (String role){
         try{
-            return Role.valueOf(ruoli.toUpperCase());
+            return Role.valueOf(role.toUpperCase());
         }catch (IllegalArgumentException e) {
             throw new BadRequestException("The selected role don't exists");
         }
