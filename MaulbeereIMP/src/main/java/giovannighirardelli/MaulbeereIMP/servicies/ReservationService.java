@@ -19,20 +19,20 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class RepositoryService {
+public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
     private UserService userService;
 
 
-    public Page<Reservation> getAllUsers(int pageNumber, int pageSize, String sortBy) {
+    public Page<Reservation> getAllReservations(int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return reservationRepository.findAll(pageable);
     }
 
-    public Reservation saveUser(ReservationDTO body) {
+    public Reservation saveReservation(ReservationDTO body) {
        User found = this.userService.findById(body.user());
 
         Reservation reservation = new Reservation(body.name(), body.surname(), body.seats(), body.telephone(), body.date(), body.time(), body.specialRequest(), convertStringToEventType(body.eventType()), convertStringToReservationType(body.reservationType()), found );
@@ -61,6 +61,27 @@ public class RepositoryService {
         }catch (IllegalArgumentException e) {
             throw new BadRequestException("The selected reservation type don't exists");
         }
+    }
+
+    public Reservation findByIdAndUpdate(UUID id, ReservationDTO payload) {
+        Reservation found = this.findById(id);
+        User user = this.userService.findById(payload.user());
+        found.setName(payload.name());
+        found.setSurname(payload.surname());
+        found.setSeats(payload.seats());
+        found.setTelephone(payload.telephone());
+        found.setDate(payload.date());
+        found.setTime(payload.time());
+        found.setSpecialRequest(payload.specialRequest());
+        found.setEventType(convertStringToEventType(payload.eventType()));
+        found.setReservationType(convertStringToReservationType(payload.reservationType()));
+        found.setUser(user);
+        return reservationRepository.save(found);
+    }
+
+    public void findReservationByIdAndDelete(UUID id) {
+        Reservation found = this.findById(id);
+        this.reservationRepository.delete(found);
     }
 
 }

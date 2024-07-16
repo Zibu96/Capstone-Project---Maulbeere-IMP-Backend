@@ -47,7 +47,7 @@ public class UserService {
     public User findById(UUID id) {
         return this.userRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
-    public void findByIdAndDelete(UUID id) {
+    public void findUserByIdAndDelete(UUID id) {
         User found = this.findById(id);
         this.userRepository.delete(found);
     }
