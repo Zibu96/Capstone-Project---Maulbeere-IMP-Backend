@@ -41,7 +41,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("implicit-geralda-giovannighirardelli-311f3521.koyeb.app/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173/"));
         // whitelist dei frontend che possono accedere a questo backend
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
