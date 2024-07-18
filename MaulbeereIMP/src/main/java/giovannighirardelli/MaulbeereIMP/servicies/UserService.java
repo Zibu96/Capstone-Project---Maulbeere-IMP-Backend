@@ -67,4 +67,16 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("The user with email: " + email + ", already exist."));
     }
 
+    public User changePassword(UUID id, UserDTO body){
+        User found=this.findById(id);
+        found.setPassword(body.password());
+        return userRepository.save(found);
+    }
+
+    public User changeEmail(UUID id, UserDTO body){
+        User found=this.findById(id);
+        found.setEmail(body.email());
+        return userRepository.save(found);
+    }
+
     }
