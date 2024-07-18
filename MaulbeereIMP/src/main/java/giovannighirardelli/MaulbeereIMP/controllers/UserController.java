@@ -39,12 +39,12 @@ public class UserController {
         userService.findUserByIdAndDelete(currentAuthenticatedUser.getId());
     }
 
-    @PatchMapping("/me")
+    @PatchMapping("/me/passwords")
     public User changePassword(@AuthenticationPrincipal User currentAuthenticatedUser, UserDTO body) {
         return userService.changePassword(currentAuthenticatedUser.getId(), body);
     }
 
-    @PatchMapping("/me")
+    @PatchMapping("/me/emails")
     public User changeEmail(@AuthenticationPrincipal User currentAuthenticatedUser, UserDTO body) {
         return userService.changeEmail(currentAuthenticatedUser.getId(), body);
     }
