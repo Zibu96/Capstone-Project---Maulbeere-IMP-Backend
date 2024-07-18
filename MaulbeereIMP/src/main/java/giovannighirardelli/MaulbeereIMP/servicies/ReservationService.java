@@ -41,6 +41,9 @@ public class ReservationService {
     }
 
     private static EventType convertStringToEventType (String event){
+        if (event == null) {
+            return null;
+        }
         try{
             return EventType.valueOf(event.toUpperCase());
         }catch (IllegalArgumentException e) {
@@ -56,6 +59,9 @@ public class ReservationService {
         this.reservationRepository.delete(found);
     }
     private static ReservationType convertStringToReservationType (String resType){
+        if (resType == null) {
+            return null;
+        }
         try{
             return ReservationType.valueOf(resType.toUpperCase());
         }catch (IllegalArgumentException e) {
