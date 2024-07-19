@@ -67,9 +67,10 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("The user with email: " + email + ", already exist."));
     }
 
-    public User changePassword(UUID id, User body){
+    public User changePassword(UUID id, UserDTO body){
         User found=this.findById(id);
-        found.setPassword(bCrypt.encode(body.getPassword()));
+        found.setPassword(body.password());
+        bCrypt.encode(found.getPassword());
         return userRepository.save(found);
     }
 
