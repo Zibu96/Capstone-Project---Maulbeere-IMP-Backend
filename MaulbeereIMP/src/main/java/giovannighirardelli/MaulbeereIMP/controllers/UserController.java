@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PatchMapping("/me/passwords")
-    public User changePassword(@AuthenticationPrincipal User currentAuthenticatedUser, UserDTO body) {
+    public User changePassword(@AuthenticationPrincipal User currentAuthenticatedUser, User body) {
         return userService.changePassword(currentAuthenticatedUser.getId(), body);
     }
 
