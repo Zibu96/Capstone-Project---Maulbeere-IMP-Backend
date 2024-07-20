@@ -69,8 +69,8 @@ public class UserService {
 
     public User changePassword(UUID id, UserDTO body){
         User found=this.findById(id);
-        found.setPassword(body.password());
-        bCrypt.encode(found.getPassword());
+       found.setPassword(bCrypt.encode(body.password()));
+
         return userRepository.save(found);
     }
 
