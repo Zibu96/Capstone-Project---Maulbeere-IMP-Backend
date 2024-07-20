@@ -40,12 +40,12 @@ public class UserController {
     }
 
     @PatchMapping("/me/passwords")
-    public User changePassword(@AuthenticationPrincipal User currentAuthenticatedUser, UserDTO body) {
+    public User changePassword(@AuthenticationPrincipal User currentAuthenticatedUser,  @RequestBody UserDTO body) {
         return userService.changePassword(currentAuthenticatedUser.getId(), body);
     }
 
     @PatchMapping("/me/emails")
-    public User changeEmail(@AuthenticationPrincipal User currentAuthenticatedUser, UserDTO body) {
+    public User changeEmail(@AuthenticationPrincipal User currentAuthenticatedUser,  @RequestBody UserDTO body) {
         return userService.changeEmail(currentAuthenticatedUser.getId(), body);
     }
 }
