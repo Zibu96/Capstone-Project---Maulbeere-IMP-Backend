@@ -77,6 +77,7 @@ public class UserService {
     public User changeEmail(UUID id, UserDTO body){
         User found=this.findById(id);
         found.setEmail(body.email());
+        System.out.println(body.email());
         return userRepository.save(found);
     }
 
