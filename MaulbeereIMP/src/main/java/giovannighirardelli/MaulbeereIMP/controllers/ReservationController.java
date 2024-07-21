@@ -24,7 +24,7 @@ public class ReservationController {
 
 
     @GetMapping
-    public Page<Reservation> getUtenti(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+    public Page<Reservation> getreservation(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
                                        @RequestParam(defaultValue = "id") String sortBy) {
 
         return this.reservationService.getAllReservations(page, size, sortBy);
