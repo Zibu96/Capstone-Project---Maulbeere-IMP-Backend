@@ -34,7 +34,14 @@ public class WeekService {
         User dinnerTwo = body.dinnerUserTwo() != null ? this.userService.findById(body.dinnerUserTwo()) : null;
         User dinnerThree = body.dinnerUserThree() != null ? this.userService.findById(body.dinnerUserThree()) : null;
 
-        Week week = new Week(convertStringToWeekDays(body.weekDays()), lunch, dinnerOne, dinnerTwo, dinnerThree);
+        Week week = new Week();
+        week.setWeekDays(convertStringToWeekDays(body.weekDays()));
+        week.setLunchUser(lunch);
+        week.setDinnerUserOne(dinnerOne);
+        week.setDinnerUserTwo(dinnerTwo);
+        week.setDinnerUserThree(dinnerThree);
+
+
 
         return weekRepository.save(week);
     }
