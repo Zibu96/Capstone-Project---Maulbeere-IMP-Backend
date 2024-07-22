@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserResponseDTO saveUtenti(@RequestBody @Validated UserDTO body, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             System.out.println(validationResult.getAllErrors());
