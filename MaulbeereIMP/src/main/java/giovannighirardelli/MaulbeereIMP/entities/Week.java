@@ -22,16 +22,16 @@ public class Week {
     private UUID id;
     @Enumerated(EnumType.STRING)
     private WeekDays weekDays;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_lunch")
     private User lunchUser;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_dinner_one")
     private User dinnerUserOne;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_dinner_two")
     private User dinnerUserTwo;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_dinner_three")
     private User dinnerUserThree;
 
