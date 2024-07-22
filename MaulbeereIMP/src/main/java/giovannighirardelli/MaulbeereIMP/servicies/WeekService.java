@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class WeekService {
     @Autowired
@@ -29,15 +32,20 @@ public class WeekService {
     }
 
     public Week saveWeek(WeekDTO body) {
-        User lunch = body.lunchUser() != null ? this.userService.findById(body.lunchUser()) : null;
-        User dinnerOne = body.dinnerUserOne() != null ? this.userService.findById(body.dinnerUserOne()) : null;
-        User dinnerTwo = body.dinnerUserTwo() != null ? this.userService.findById(body.dinnerUserTwo()) : null;
-        User dinnerThree = body.dinnerUserThree() != null ? this.userService.findById(body.dinnerUserThree()) : null;
-
+        User lunch = findUserById(body.lunchUser());
+        User dinnerOne = findUserById(body.dinnerUserOne());
+        User dinnerTwo = findUserById(body.dinnerUserTwo());
+        User dinnerThree = findUserById(body.dinnerUserThree());
 
         Week week = new Week(convertStringToWeekDays(body.weekDays()), lunch, dinnerOne, dinnerTwo, dinnerThree);
 
         return weekRepository.save(week);
+    }
+
+    private User findUserById(UUID userId) {
+        return Optional.ofNullable(userId)
+                .map(userService::findById)
+                .orElse(null);
     }
 
     private static WeekDays convertStringToWeekDays (String day){
@@ -47,4 +55,6 @@ public class WeekService {
             throw new BadRequestException("The selected role don't exists");
         }
     }
+
+
 }
