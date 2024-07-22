@@ -29,19 +29,12 @@ public class WeekService {
     }
 
     public Week saveWeek(WeekDTO body) {
-        User lunch = body.lunchUser() != null ? this.userService.findById(body.lunchUser()) : null;
-        User dinnerOne = body.dinnerUserOne() != null ? this.userService.findById(body.dinnerUserOne()) : null;
-        User dinnerTwo = body.dinnerUserTwo() != null ? this.userService.findById(body.dinnerUserTwo()) : null;
-        User dinnerThree = body.dinnerUserThree() != null ? this.userService.findById(body.dinnerUserThree()) : null;
+        User lunch= this.userService.findById(body.lunchUser());
+        User dinnerOne= this.userService.findById(body.dinnerUserOne());
+        User dinnerTwo= this.userService.findById(body.dinnerUserTwo());
+        User dinnerThree= this.userService.findById(body.dinnerUserThree());
 
-        Week week = new Week();
-        week.setWeekDays(convertStringToWeekDays(body.weekDays()));
-        week.setLunchUser(lunch);
-        week.setDinnerUserOne(dinnerOne);
-        week.setDinnerUserTwo(dinnerTwo);
-        week.setDinnerUserThree(dinnerThree);
-
-
+        Week week = new Week(convertStringToWeekDays(body.weekDays()), lunch, dinnerOne, dinnerTwo, dinnerThree);
 
         return weekRepository.save(week);
     }
