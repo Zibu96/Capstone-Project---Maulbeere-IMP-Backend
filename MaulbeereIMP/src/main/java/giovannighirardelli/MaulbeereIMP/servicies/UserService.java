@@ -2,6 +2,7 @@ package giovannighirardelli.MaulbeereIMP.servicies;
 
 
 import giovannighirardelli.MaulbeereIMP.entities.User;
+import giovannighirardelli.MaulbeereIMP.entities.Week;
 import giovannighirardelli.MaulbeereIMP.enums.Role;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
 import giovannighirardelli.MaulbeereIMP.exceptions.NotFoundException;
@@ -25,6 +26,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder bCrypt;
+    @Autowired
+    private WeekService weekService;
 
 
     public Page<User> getAllUsers(int pageNumber, int pageSize, String sortBy) {
@@ -81,4 +84,14 @@ public class UserService {
         return userRepository.save(found);
     }
 
-}
+    public User getUserByWeek(Week body) {
+        UUID userId = weekService.getFirstValidUserId(body);
+        if (userId != null) {
+            Optional<User> user = userRepository.findById(userId);
+            return user.orElse(null);
+        }
+        return null;
+    }
+
+    }
+
