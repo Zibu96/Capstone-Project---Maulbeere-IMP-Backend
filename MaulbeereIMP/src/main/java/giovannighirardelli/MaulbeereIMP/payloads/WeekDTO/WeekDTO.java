@@ -7,10 +7,10 @@ import java.util.UUID;
 public record WeekDTO(
         @NotEmpty(message = "Day of week field is required")
         String weekDays,
-        UUID lunchUser,
-        UUID dinnerUserOne,
-        UUID dinnerUserTwo,
-        UUID dinnerUserThree
+        String lunchUser,
+        String dinnerUserOne,
+        String dinnerUserTwo,
+        String dinnerUserThree
 
 ) {
 }

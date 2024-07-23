@@ -2,7 +2,7 @@ package giovannighirardelli.MaulbeereIMP.servicies;
 
 
 import giovannighirardelli.MaulbeereIMP.entities.Week;
-import giovannighirardelli.MaulbeereIMP.entities.User;
+
 import giovannighirardelli.MaulbeereIMP.enums.WeekDays;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
 import giovannighirardelli.MaulbeereIMP.payloads.WeekDTO.WeekDTO;
@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class WeekService {
@@ -32,21 +30,12 @@ public class WeekService {
     }
 
     public Week saveWeek(WeekDTO body) {
-        User lunch = findUserById(body.lunchUser());
-        User dinnerOne = findUserById(body.dinnerUserOne());
-        User dinnerTwo = findUserById(body.dinnerUserTwo());
-        User dinnerThree = findUserById(body.dinnerUserThree());
 
-        Week week = new Week(convertStringToWeekDays(body.weekDays()), lunch, dinnerOne, dinnerTwo, dinnerThree);
+        Week week = new Week(convertStringToWeekDays(body.weekDays()), body.lunchUser(), body.dinnerUserOne(), body.dinnerUserTwo(), body.dinnerUserThree());
 
         return weekRepository.save(week);
     }
 
-    private User findUserById(UUID userId) {
-        return Optional.ofNullable(userId)
-                .map(userService::findById)
-                .orElse(null);
-    }
 
     private static WeekDays convertStringToWeekDays (String day){
         try{
