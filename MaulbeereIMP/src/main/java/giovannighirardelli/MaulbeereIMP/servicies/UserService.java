@@ -26,8 +26,7 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder bCrypt;
-    @Autowired
-    private WeekService weekService;
+
 
 
     public Page<User> getAllUsers(int pageNumber, int pageSize, String sortBy) {
@@ -84,14 +83,6 @@ public class UserService {
         return userRepository.save(found);
     }
 
-    public User getUserByWeek(Week body) {
-        UUID userId = weekService.getFirstValidUserId(body);
-        if (userId != null) {
-            Optional<User> user = userRepository.findById(userId);
-            return user.orElse(null);
-        }
-        return null;
-    }
 
     }
 

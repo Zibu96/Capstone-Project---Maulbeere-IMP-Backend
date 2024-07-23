@@ -50,8 +50,9 @@ public class UserController {
         return userService.changeEmail(currentAuthenticatedUser.getId(), body);
     }
 
-    @GetMapping("/week")
-    public User getUserByWeek(@RequestBody Week body){
-        return userService.getUserByWeek(body);
+    @GetMapping("/{userId}")
+    public User findById(@PathVariable UUID userId) {
+        return this.userService.findById(userId);
     }
+
 }

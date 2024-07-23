@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -22,8 +23,7 @@ import java.util.UUID;
 public class WeekService {
     @Autowired
     private WeekRepository weekRepository;
-    @Autowired
-    private UserService userService;
+
 
 
     public Page<Week> getAllWeek(int pageNumber, int pageSize, String sortBy) {
@@ -48,62 +48,5 @@ public class WeekService {
         }
     }
 
-    public UUID convertLunchUserToId (Week body) {
-
-        if (body != null && body.getLunchUser() != null) {
-            return UUID.fromString(body.getLunchUser());
-        }
-        return null;
-
-    }
-    public UUID convertDinnerUserOneToId (Week body) {
-
-        if (body != null && body.getDinnerUserOne() != null) {
-            return UUID.fromString(body.getDinnerUserOne());
-        }
-        return null;
-
-    }
-
-    public UUID convertDinnerUserTwoToId (Week body) {
-
-        if (body != null && body.getDinnerUserTwo() != null) {
-            return UUID.fromString(body.getDinnerUserTwo());
-        }
-        return null;
-
-    }
-
-    public UUID convertDinnerUserThreeToId (Week body) {
-
-        if (body != null && body.getDinnerUserThree() != null) {
-            return UUID.fromString(body.getDinnerUserThree());
-        }
-        return null;
-
-    }
-    public UUID getFirstValidUserId(Week body) {
-        UUID userId = convertLunchUserToId(body);
-        if (userId != null) {
-            return userId;
-        }
-
-        userId = convertDinnerUserOneToId(body);
-        if (userId != null) {
-            return userId;
-        }
-
-        userId = convertDinnerUserTwoToId(body);
-        if (userId != null) {
-            return userId;
-        }
-
-        userId = convertDinnerUserThreeToId(body);
-        if (userId != null) {
-            return userId;
-        }
-
-        return null;
-    }
 
 }

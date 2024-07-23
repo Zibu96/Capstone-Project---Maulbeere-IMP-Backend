@@ -1,5 +1,6 @@
 package giovannighirardelli.MaulbeereIMP.controllers;
 
+import giovannighirardelli.MaulbeereIMP.entities.User;
 import giovannighirardelli.MaulbeereIMP.entities.Week;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
 import giovannighirardelli.MaulbeereIMP.payloads.DinnerDTO.DinnerResponseDTO;
@@ -36,5 +37,6 @@ public class WeekController {
         return new WeekResponseDTO(this.weekService.saveWeek(body).getId());
 
     }
+
 
 }
