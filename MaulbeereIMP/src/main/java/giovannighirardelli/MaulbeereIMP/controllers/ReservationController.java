@@ -49,7 +49,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{reservationId}")
-    public void deleteUserProfile(@PathVariable UUID reservationId) {
+    public void deleteReservation(@PathVariable UUID reservationId) {
         reservationService.findReservationByIdAndDelete(reservationId);
     }
 }

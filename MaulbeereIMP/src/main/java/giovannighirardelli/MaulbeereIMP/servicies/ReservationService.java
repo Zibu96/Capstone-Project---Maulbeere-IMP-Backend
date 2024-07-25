@@ -54,10 +54,7 @@ public class ReservationService {
     public Reservation findById(UUID id) {
         return this.reservationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
-    public void findByIdAndDelete(UUID id) {
-        Reservation found = this.findById(id);
-        this.reservationRepository.delete(found);
-    }
+
     private static ReservationType convertStringToReservationType (String resType){
         if (resType == null) {
             return null;
