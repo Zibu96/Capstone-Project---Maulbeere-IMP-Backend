@@ -25,13 +25,13 @@ public class KitchenService {
     public Page<StaffOrganizer> getAllToDo(int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        return staffOrganizerRepository.findByActionType(convertStringToActionType("TO_DO"), pageable);
+        return staffOrganizerRepository.findByActionTypeAndStaffType(convertStringToActionType("TO_DO"), convertStringToStaffType("CUCINA"), pageable);
     }
 
     public Page<StaffOrganizer> getAllCommunication(int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        return staffOrganizerRepository.findByActionType(convertStringToActionType("COMUNICAZIONE"), pageable);
+        return staffOrganizerRepository.findByActionTypeAndStaffType(convertStringToActionType("COMUNICAZIONE"), convertStringToStaffType("CUCINA"),pageable);
     }
 
     public StaffOrganizer saveToDO(StaffOrganizerDTO body) {
