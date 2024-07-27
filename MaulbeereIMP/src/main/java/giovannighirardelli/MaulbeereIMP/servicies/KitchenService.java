@@ -36,14 +36,14 @@ public class KitchenService {
 
     public StaffOrganizer saveToDO(StaffOrganizerDTO body) {
 
-        StaffOrganizer organizer = new StaffOrganizer(convertStringToStaffType("SALA"), convertStringToActionType("TO_DO"), body.text());
+        StaffOrganizer organizer = new StaffOrganizer(convertStringToStaffType("CUCINA"), convertStringToActionType("TO_DO"), body.text());
 
         return staffOrganizerRepository.save(organizer);
     }
 
     public StaffOrganizer saveCommunication(StaffOrganizerDTO body) {
 
-        StaffOrganizer organizer = new StaffOrganizer(convertStringToStaffType("SALA"), convertStringToActionType("COMUNICAZIONE"), body.text());
+        StaffOrganizer organizer = new StaffOrganizer(convertStringToStaffType("CUCINA"), convertStringToActionType("COMUNICAZIONE"), body.text());
 
         return staffOrganizerRepository.save(organizer);
     }
