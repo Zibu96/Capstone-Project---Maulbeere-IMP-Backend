@@ -61,7 +61,7 @@ public class KitchenService {
 
     public ShoppingList saveShoppingList(ShoppingListDTO body) {
 
-        ShoppingList item = new ShoppingList(convertStringToStaffType("SALA"), body.product(),body.quantity(), body.value());
+        ShoppingList item = new ShoppingList(convertStringToStaffType("CUCINA"), body.product(),body.quantity(), body.value());
 
         return shoppingListRepository.save(item);
     }
