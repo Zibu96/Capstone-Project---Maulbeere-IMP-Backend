@@ -88,7 +88,7 @@ public class WaitStaffController {
         waitStaffService.findByIdAndDelete(staffOrganizerId);
     }
 
-    @DeleteMapping("/{shoppingListId}")
+    @DeleteMapping("/shoppingLists/{shoppingListId}")
     public void deleteShoppingList(@PathVariable UUID shoppingListId) {
         waitStaffService.findShoppingListByIdAndDelete(shoppingListId);
     }

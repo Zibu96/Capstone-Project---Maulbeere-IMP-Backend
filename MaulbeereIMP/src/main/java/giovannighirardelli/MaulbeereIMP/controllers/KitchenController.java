@@ -87,7 +87,7 @@ public class KitchenController {
     }
 
 
-    @DeleteMapping("/{shoppingListId}")
+    @DeleteMapping("/shoppingLists/{shoppingListId}")
     public void deleteShoppingList(@PathVariable UUID shoppingListId) {
         kitchenService.findShoppingListByIdAndDelete(shoppingListId);
     }
