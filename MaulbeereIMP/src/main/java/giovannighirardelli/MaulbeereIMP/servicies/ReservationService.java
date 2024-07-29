@@ -68,9 +68,10 @@ public class ReservationService {
         }
     }
 
-    public List<Reservation> getReservationByToday () {
-
-        return reservationRepository.findByDate(LocalDate.now());
+    public Page<Reservation> getAllTodayReservations(int pageNumber, int pageSize, String sortBy) {
+        if (pageSize > 20) pageSize = 20;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return reservationRepository.findByDate(LocalDate.now(),pageable);
     }
 
     public Reservation findByIdAndUpdate(UUID id, ReservationDTO payload) {

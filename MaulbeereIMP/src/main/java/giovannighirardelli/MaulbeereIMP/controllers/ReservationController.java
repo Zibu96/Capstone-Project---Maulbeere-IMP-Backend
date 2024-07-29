@@ -25,18 +25,18 @@ public class ReservationController {
 
 
     @GetMapping
-    public Page<Reservation> getreservation(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+    public Page<Reservation> getReservation(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
                                        @RequestParam(defaultValue = "id") String sortBy) {
 
         return this.reservationService.getAllReservations(page, size, sortBy);
     }
 
     @GetMapping("/today")
-    public List<Reservation> getReservationByToday () {
+    public Page<Reservation> getTodayReservations(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+                                            @RequestParam(defaultValue = "id") String sortBy) {
 
-        return this.reservationService.getReservationByToday();
+        return this.reservationService.getAllTodayReservations(page, size, sortBy);
     }
-
 
     @PostMapping
     public ReservationResponseDTO saveReservation(@RequestBody @Validated ReservationDTO body, BindingResult validationResult){
