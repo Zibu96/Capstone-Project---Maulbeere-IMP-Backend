@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -64,6 +66,11 @@ public class ReservationService {
         }catch (IllegalArgumentException e) {
             throw new BadRequestException("The selected reservation type don't exists");
         }
+    }
+
+    public List<Reservation> getReservationByToday () {
+
+        return reservationRepository.findByDate(LocalDate.now());
     }
 
     public Reservation findByIdAndUpdate(UUID id, ReservationDTO payload) {

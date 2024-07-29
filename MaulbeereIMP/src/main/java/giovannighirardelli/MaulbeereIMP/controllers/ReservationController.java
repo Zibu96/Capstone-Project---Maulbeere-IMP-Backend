@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,6 +29,12 @@ public class ReservationController {
                                        @RequestParam(defaultValue = "id") String sortBy) {
 
         return this.reservationService.getAllReservations(page, size, sortBy);
+    }
+
+    @GetMapping("/today")
+    public List<Reservation> getReservationByToday () {
+
+        return this.reservationService.getReservationByToday();
     }
 
 
