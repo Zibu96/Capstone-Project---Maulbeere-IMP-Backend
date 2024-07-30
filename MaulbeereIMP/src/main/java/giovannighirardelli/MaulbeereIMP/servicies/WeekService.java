@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -33,9 +34,9 @@ public class WeekService {
     }
 
     public Week saveWeek(WeekDTO body) {
-
+        Optional<Week> existingWeek = weekRepository.findByWeekDays(convertStringToWeekDays(body.weekDays()));
+        existingWeek.ifPresent(week -> weekRepository.delete(week));
         Week week = new Week(convertStringToWeekDays(body.weekDays()), body.lunchUser(), body.dinnerUserOne(), body.dinnerUserTwo(), body.dinnerUserThree());
-
         return weekRepository.save(week);
     }
 
@@ -53,6 +54,8 @@ public class WeekService {
     public Week findById(UUID id) {
         return this.weekRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
+
+
 
 
 
