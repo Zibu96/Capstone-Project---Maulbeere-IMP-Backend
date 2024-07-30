@@ -2,6 +2,7 @@ package giovannighirardelli.MaulbeereIMP.controllers;
 
 
 import giovannighirardelli.MaulbeereIMP.entities.User;
+import giovannighirardelli.MaulbeereIMP.entities.Week;
 import giovannighirardelli.MaulbeereIMP.payloads.UsersDTO.UserDTO;
 import giovannighirardelli.MaulbeereIMP.servicies.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +49,10 @@ public class UserController {
     public User changeEmail(@AuthenticationPrincipal User currentAuthenticatedUser,  @RequestBody UserDTO body) {
         return userService.changeEmail(currentAuthenticatedUser.getId(), body);
     }
+
+    @GetMapping("/{userId}")
+    public User findById(@PathVariable UUID userId) {
+        return this.userService.findById(userId);
+    }
+
 }

@@ -2,8 +2,8 @@ package giovannighirardelli.MaulbeereIMP.servicies;
 
 
 
-import giovannighirardelli.MaulbeereIMP.entities.User;
 import giovannighirardelli.MaulbeereIMP.entities.Week;
+
 import giovannighirardelli.MaulbeereIMP.enums.WeekDays;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
 import giovannighirardelli.MaulbeereIMP.exceptions.NotFoundException;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+
 @Service
 public class WeekService {
     @Autowired
     private WeekRepository weekRepository;
-    @Autowired
-    private UserService userService;
+
 
 
     public Page<Week> getAllWeek(int pageNumber, int pageSize, String sortBy) {
@@ -33,15 +33,12 @@ public class WeekService {
     }
 
     public Week saveWeek(WeekDTO body) {
-        User lunch= this.userService.findById(body.lunchUser());
-        User dinnerOne= this.userService.findById(body.dinnerUserOne());
-        User dinnerTwo= this.userService.findById(body.dinnerUserTwo());
-        User dinnerThree= this.userService.findById(body.dinnerUserThree());
 
-        Week week = new Week(convertStringToWeekDays(body.weekDays()), lunch, dinnerOne, dinnerTwo, dinnerThree);
+        Week week = new Week(convertStringToWeekDays(body.weekDays()), body.lunchUser(), body.dinnerUserOne(), body.dinnerUserTwo(), body.dinnerUserThree());
 
         return weekRepository.save(week);
     }
+
 
     private static WeekDays convertStringToWeekDays (String day){
         try{
@@ -52,9 +49,11 @@ public class WeekService {
     }
 
 
+
     public Week findById(UUID id) {
         return this.weekRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
+
 
 
 

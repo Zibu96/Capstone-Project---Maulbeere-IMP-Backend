@@ -22,21 +22,17 @@ public class Week {
     private UUID id;
     @Enumerated(EnumType.STRING)
     private WeekDays weekDays;
-    @OneToOne
-    @JoinColumn(name = "user_lunch")
-    private User lunchUser;
-    @OneToOne
-    @JoinColumn(name = "user_dinner_one")
-    private User dinnerUserOne;
-    @OneToOne
-    @JoinColumn(name = "user_dinner_two")
-    private User dinnerUserTwo;
-    @OneToOne
-    @JoinColumn(name = "user_dinner_three")
-    private User dinnerUserThree;
+    @Column(name = "lunch_user")
+    private String lunchUser;
+    @Column(name = "dinner_user_one")
+    private String dinnerUserOne;
+    @Column(name = "dinner_user_two")
+    private String dinnerUserTwo;
+    @Column(name = "dinner_user_three")
+    private String dinnerUserThree;
 
 
-    public Week(WeekDays weekDays, User lunchUser, User dinnerUserOne, User dinnerUserTwo, User dinnerUserThree) {
+    public Week(WeekDays weekDays, String lunchUser, String dinnerUserOne, String dinnerUserTwo, String dinnerUserThree) {
         this.weekDays = weekDays;
         this.lunchUser = lunchUser;
         this.dinnerUserOne = dinnerUserOne;

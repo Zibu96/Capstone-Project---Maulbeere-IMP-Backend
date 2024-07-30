@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -54,10 +56,7 @@ public class ReservationService {
     public Reservation findById(UUID id) {
         return this.reservationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
-    public void findByIdAndDelete(UUID id) {
-        Reservation found = this.findById(id);
-        this.reservationRepository.delete(found);
-    }
+
     private static ReservationType convertStringToReservationType (String resType){
         if (resType == null) {
             return null;
@@ -67,6 +66,12 @@ public class ReservationService {
         }catch (IllegalArgumentException e) {
             throw new BadRequestException("The selected reservation type don't exists");
         }
+    }
+
+    public Page<Reservation> getAllTodayReservations(int pageNumber, int pageSize, String sortBy) {
+        if (pageSize > 20) pageSize = 20;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return reservationRepository.findByDate(LocalDate.now(),pageable);
     }
 
     public Reservation findByIdAndUpdate(UUID id, ReservationDTO payload) {

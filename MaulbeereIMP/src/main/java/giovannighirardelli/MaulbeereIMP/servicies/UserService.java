@@ -2,6 +2,7 @@ package giovannighirardelli.MaulbeereIMP.servicies;
 
 
 import giovannighirardelli.MaulbeereIMP.entities.User;
+import giovannighirardelli.MaulbeereIMP.entities.Week;
 import giovannighirardelli.MaulbeereIMP.enums.Role;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
 import giovannighirardelli.MaulbeereIMP.exceptions.NotFoundException;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,6 +26,7 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder bCrypt;
+
 
 
     public Page<User> getAllUsers(int pageNumber, int pageSize, String sortBy) {
@@ -43,42 +46,43 @@ public class UserService {
     }
 
 
-
     public User findById(UUID id) {
         return this.userRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
+
     public void findUserByIdAndDelete(UUID id) {
         User found = this.findById(id);
         this.userRepository.delete(found);
     }
 
 
-
-    private static Role convertStringToRuoliUtente (String role){
-        try{
+    private static Role convertStringToRuoliUtente(String role) {
+        try {
             return Role.valueOf(role.toUpperCase());
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new BadRequestException("The selected role don't exists");
         }
-        }
+    }
 
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("The user with email: " + email + ", already exist."));
     }
 
-    public User changePassword(UUID id, UserDTO body){
-        User found=this.findById(id);
-       found.setPassword(bCrypt.encode(body.password()));
+    public User changePassword(UUID id, UserDTO body) {
+        User found = this.findById(id);
+        found.setPassword(bCrypt.encode(body.password()));
 
         return userRepository.save(found);
     }
 
-    public User changeEmail(UUID id, UserDTO body){
-        User found=this.findById(id);
+    public User changeEmail(UUID id, UserDTO body) {
+        User found = this.findById(id);
         found.setEmail(body.email());
         System.out.println(body.email());
         return userRepository.save(found);
     }
 
+
     }
+
