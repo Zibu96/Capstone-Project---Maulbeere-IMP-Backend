@@ -1,10 +1,12 @@
 package giovannighirardelli.MaulbeereIMP.servicies;
 
 
-import giovannighirardelli.MaulbeereIMP.entities.Week;
+
 import giovannighirardelli.MaulbeereIMP.entities.User;
+import giovannighirardelli.MaulbeereIMP.entities.Week;
 import giovannighirardelli.MaulbeereIMP.enums.WeekDays;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
+import giovannighirardelli.MaulbeereIMP.exceptions.NotFoundException;
 import giovannighirardelli.MaulbeereIMP.payloads.WeekDTO.WeekDTO;
 import giovannighirardelli.MaulbeereIMP.repositories.WeekRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class WeekService {
@@ -46,4 +50,12 @@ public class WeekService {
             throw new BadRequestException("The selected role don't exists");
         }
     }
+
+
+    public Week findById(UUID id) {
+        return this.weekRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+
+
 }
