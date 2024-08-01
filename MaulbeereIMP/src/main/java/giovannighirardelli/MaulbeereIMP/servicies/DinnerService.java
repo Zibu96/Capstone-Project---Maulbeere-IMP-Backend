@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DinnerService {
     @Autowired
@@ -27,7 +29,8 @@ public class DinnerService {
 
     public Dinner saveDinner(DinnerDTO body) {
         User found= this.userService.findById(body.user());
-
+        Optional<Dinner> existingDinner = dinnerRepository.findByUser(found);
+        existingDinner.ifPresent(dinnerRepository::delete);
         Dinner dinner = new Dinner(body.monday(), body.tuesday(), body.wednesday(), body.thursday(), body.friday(), body.saturday(), body.sunday(), found);
 
         return dinnerRepository.save(dinner);
