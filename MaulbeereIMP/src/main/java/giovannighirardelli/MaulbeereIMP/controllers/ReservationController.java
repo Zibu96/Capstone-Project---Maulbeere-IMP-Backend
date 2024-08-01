@@ -5,16 +5,14 @@ import giovannighirardelli.MaulbeereIMP.entities.Reservation;
 import giovannighirardelli.MaulbeereIMP.exceptions.BadRequestException;
 import giovannighirardelli.MaulbeereIMP.payloads.ReservationDTO.ReservationDTO;
 import giovannighirardelli.MaulbeereIMP.payloads.ReservationDTO.ReservationResponseDTO;
-import giovannighirardelli.MaulbeereIMP.payloads.UsersDTO.UserResponseDTO;
 import giovannighirardelli.MaulbeereIMP.servicies.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 import java.util.UUID;
 
 @RestController
@@ -53,6 +51,11 @@ public class ReservationController {
     public Reservation findByIdAndUpdate(@PathVariable UUID reservationId, @RequestBody ReservationDTO body){
         return this.reservationService.findByIdAndUpdate(reservationId, body);
 
+    }
+
+    @GetMapping("/{userId}")
+    public Reservation findById(@PathVariable UUID userId) {
+        return this.reservationService.findById(userId);
     }
 
     @DeleteMapping("/{reservationId}")
