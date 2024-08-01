@@ -55,4 +55,8 @@ public class UserController {
         return this.userService.findById(userId);
     }
 
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable UUID userId) {
+        userService.findUserByIdAndDelete(userId);
+    }
 }
