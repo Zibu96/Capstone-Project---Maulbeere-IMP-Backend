@@ -65,7 +65,7 @@ public class ReservationController {
         reservationService.findReservationByIdAndDelete(reservationId);
     }
 
-    @GetMapping("/{date}")
+    @GetMapping("/dates/{date}")
     public List<Reservation> findByDate(@PathVariable LocalDate date) {
         return this.reservationService.findByDate(date);
     }
