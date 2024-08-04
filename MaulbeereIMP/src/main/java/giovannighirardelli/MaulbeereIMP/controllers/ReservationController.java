@@ -13,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -61,5 +63,10 @@ public class ReservationController {
     @DeleteMapping("/{reservationId}")
     public void deleteReservation(@PathVariable UUID reservationId) {
         reservationService.findReservationByIdAndDelete(reservationId);
+    }
+
+    @GetMapping("/{date}")
+    public List<Reservation> findByDate(@PathVariable LocalDate date) {
+        return this.reservationService.findByDate(date);
     }
 }

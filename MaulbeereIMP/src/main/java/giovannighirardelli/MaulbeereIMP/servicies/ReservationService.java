@@ -57,6 +57,10 @@ public class ReservationService {
         return this.reservationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
+    public List<Reservation> findByDate(LocalDate date) {
+        return this.reservationRepository.getByDate(date);
+    }
+
     private static ReservationType convertStringToReservationType (String resType){
         if (resType == null) {
             return null;
