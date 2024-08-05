@@ -9,6 +9,7 @@ import giovannighirardelli.MaulbeereIMP.exceptions.NotFoundException;
 import giovannighirardelli.MaulbeereIMP.payloads.UsersDTO.UserDTO;
 import giovannighirardelli.MaulbeereIMP.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder bCrypt;
+    @Value("${USER_PASSWORD}")
+    private String userPassword;
 
 
 
@@ -40,7 +43,9 @@ public class UserService {
             throw new BadRequestException("The user with email: " + body.email() + ", already exist.");
         });
 
-        User user = new User(body.name(), body.surname(), body.username(), body.email(), bCrypt.encode(body.password()), convertStringToRuoliUtente(body.role()));
+        String password = body.password() != null && !body.password().isEmpty() ? body.password() : userPassword;
+
+        User user = new User(body.name(), body.surname(), body.username(), body.email(), bCrypt.encode(password), convertStringToRuoliUtente(body.role()));
 
         return userRepository.save(user);
     }

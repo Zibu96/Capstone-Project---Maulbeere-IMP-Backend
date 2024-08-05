@@ -32,6 +32,9 @@ public class EventService {
 
     public Event saveEvent(EventDTO body) {
 
+        if (body.date().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La data della prenotazione non può essere precedente a oggi.");
+        }
 
         Event event = new Event(body.name(), body.description(), convertStringToEventType(body.eventType()), body.date(), body.time());
 
@@ -59,6 +62,10 @@ public class EventService {
 
     public Event findByIdAndUpdate(UUID id, EventDTO payload) {
         Event found = this.findById(id);
+
+        if (payload.date().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La data della prenotazione non può essere precedente a oggi.");
+        }
 
         found.setName(payload.name());
         found.setDescription(payload.description());;

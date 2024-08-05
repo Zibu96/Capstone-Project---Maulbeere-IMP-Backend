@@ -13,4 +13,6 @@ import java.util.UUID;
 public interface EventRepository extends JpaRepository<Event, UUID> {
 
     List<Event> getByDate (LocalDate date);
+
+    void deleteByDateBefore(LocalDate date);
 }

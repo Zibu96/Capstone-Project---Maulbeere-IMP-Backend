@@ -47,7 +47,7 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(Arrays.asList("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Registro la configurazione CORS appena fatta a livello globale su tutti gli endpoint del mio server
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }

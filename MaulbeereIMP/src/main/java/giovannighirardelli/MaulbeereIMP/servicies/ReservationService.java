@@ -37,6 +37,10 @@ public class ReservationService {
     public Reservation saveReservation(ReservationDTO body) {
        User found = this.userService.findById(body.user());
 
+        if (body.date().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La data della prenotazione non può essere precedente a oggi.");
+        }
+
         Reservation reservation = new Reservation(body.name(), body.surname(), body.seats(), body.telephone(), body.date(), body.time(), body.specialRequest(), convertStringToEventType(body.eventType()), convertStringToReservationType(body.reservationType()), found );
 
         return reservationRepository.save(reservation);
@@ -81,6 +85,10 @@ public class ReservationService {
     public Reservation findByIdAndUpdate(UUID id, ReservationDTO payload) {
         Reservation found = this.findById(id);
         User user = this.userService.findById(payload.user());
+
+        if (payload.date().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La data della prenotazione non può essere precedente a oggi.");
+        }
         found.setName(payload.name());
         found.setSurname(payload.surname());
         found.setSeats(payload.seats());

@@ -16,4 +16,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID> 
     Page<Reservation> findByDate (LocalDate date, Pageable pageable);
 
     List<Reservation> getByDate (LocalDate date);
+
+    void deleteByDateBefore(LocalDate date);
 }
