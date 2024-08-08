@@ -40,6 +40,11 @@ public class EventController {
 
     }
 
+    @GetMapping("/{eventId}")
+    public Event findById(@PathVariable UUID eventId) {
+        return this.eventService.findById(eventId);
+    }
+
     @PutMapping("/{reservationId}")
     public Event findByIdAndUpdate(@PathVariable UUID reservationId, @RequestBody EventDTO body){
         return this.eventService.findByIdAndUpdate(reservationId, body);

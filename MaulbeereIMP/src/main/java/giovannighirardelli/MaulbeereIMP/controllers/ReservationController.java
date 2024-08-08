@@ -55,9 +55,9 @@ public class ReservationController {
 
     }
 
-    @GetMapping("/{userId}")
-    public Reservation findById(@PathVariable UUID userId) {
-        return this.reservationService.findById(userId);
+    @GetMapping("/{reservationId}")
+    public Reservation findById(@PathVariable UUID reservationId) {
+        return this.reservationService.findById(reservationId);
     }
 
     @DeleteMapping("/{reservationId}")
