@@ -45,16 +45,16 @@ public class EventController {
         return this.eventService.findById(eventId);
     }
 
-    @PutMapping("/{reservationId}")
-    public Event findByIdAndUpdate(@PathVariable UUID reservationId, @RequestBody EventDTO body){
-        return this.eventService.findByIdAndUpdate(reservationId, body);
+    @PutMapping("/{eventId}")
+    public Event findByIdAndUpdate(@PathVariable UUID eventId, @RequestBody EventDTO body){
+        return this.eventService.findByIdAndUpdate(eventId, body);
 
     }
 
 
-    @DeleteMapping("/{reservationId}")
-    public void deleteEvent(@PathVariable UUID reservationId) {
-        eventService.findEventByIdAndDelete(reservationId);
+    @DeleteMapping("/{eventId}")
+    public void deleteEvent(@PathVariable UUID eventId) {
+        eventService.findEventByIdAndDelete(eventId);
     }
 
     @GetMapping("/dates/{date}")

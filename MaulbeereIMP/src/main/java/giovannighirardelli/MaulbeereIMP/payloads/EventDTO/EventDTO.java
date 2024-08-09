@@ -11,7 +11,7 @@ public record EventDTO(
         @NotEmpty(message = "The name field is required")
         @Size(min = 2, message = "The name field is min 2")
         String name,
-        @NotEmpty(message = "The description field is required")
+
         String description,
         @NotNull(message = "The date field is required")
         LocalDate date,
