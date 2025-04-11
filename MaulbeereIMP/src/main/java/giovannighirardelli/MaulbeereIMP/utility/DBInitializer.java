@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -38,6 +39,7 @@ public class DBInitializer {
 
     @Bean
     @Scheduled(cron = "0 0 0 * * ?")
+    @Transactional
     public void cleanReservationDb(){
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         reservationRepository.deleteByDateBefore(oneMonthAgo);
@@ -45,6 +47,7 @@ public class DBInitializer {
 
     @Bean
     @Scheduled(cron = "0 0 0 * * ?")
+    @Transactional
     public void cleanEventDb(){
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         eventRepository.deleteByDateBefore(oneMonthAgo);
